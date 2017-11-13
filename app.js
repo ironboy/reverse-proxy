@@ -34,9 +34,14 @@ http.createServer((req,res) => {
     res.statusCode = 500;
     res.end('Can not find your app!');
   }
-
+  res.setHeader('x-powered-by','WAHAASAES');
   if(port){
     proxy.web(req,res,{target:'http://127.0.0.1:' + port});
   }
 
 }).listen(80);
+
+
+
+
+
