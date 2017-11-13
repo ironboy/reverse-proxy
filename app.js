@@ -5,6 +5,12 @@ const httpProxy = require('http-proxy');
 // Create a new reverse proxy
 const proxy = httpProxy.createProxyServer();
 
+// Handle proxy errors - thus not breaking the whole
+// reverse-proxy app if an app doesn't answer
+proxy.on('error',function(e){
+  console.log('Proxy error', Date.now(), e);
+})
+
 // Create a new webserver
 http.createServer((req,res) => {
 
