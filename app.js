@@ -14,6 +14,9 @@ proxy.on('error',function(e){
 // Create a new webserver
 http.createServer((req,res) => {
 
+  // Set/replace response headers
+  setResponseHeaders(req,res);
+
   // Can we read the incoming url?
   let host = req.headers.host;
   let hostParts = host.split('.');
@@ -34,7 +37,7 @@ http.createServer((req,res) => {
     res.statusCode = 500;
     res.end('Can not find your app!');
   }
-  res.setHeader('x-powered-by','WAHAASAES');
+
   if(port){
     proxy.web(req,res,{target:'http://127.0.0.1:' + port});
   }
@@ -42,6 +45,22 @@ http.createServer((req,res) => {
 }).listen(80);
 
 
+function setResponseHeaders(req,res){
 
+  // there is a built in node function called res.writeHead
+  // that writes http response headers
+  // store that function in another property
+  res.oldWriteHead = res.writeHead;
 
+  // and then replace it with our function
+  res.writeHead = function(statusCode, headers){
+
+    // set/replace our own headers
+    res.setHeader('x-powered-by','Thomas supercoola server');
+
+    // call the original write head function as well
+    res.oldWriteHead(statusCode,headers);
+  }
+
+}
 
