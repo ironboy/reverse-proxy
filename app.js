@@ -5,7 +5,7 @@ const tls = require('tls');
 const fs = require('fs');
 
 // Read all certs from certbot into an object
-let certs = readCerts();
+let certs = readCerts("/etc/letsencrypt/live");
 console.log(certs);
 
 // Create a new reverse proxy
@@ -73,7 +73,7 @@ function setResponseHeaders(req,res){
 
 }
 
-function readCerts(){
+function readCerts(pathToCerts){
 
   let certs = {},
       domains = fs.readdirSync(pathToCerts);
