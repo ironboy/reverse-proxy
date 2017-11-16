@@ -65,15 +65,23 @@ https.createServer({
 
   let port;
 
-  if(subDomain == '' || subDomain == 'www'){
+  // Don't run our main site on both www and non-www.
+  // Choose non-www domain
+  if(subDomain == 'www'){
+    // redirect to domain without www
+    let url = 'https://' + domain + '.' + topDomain + req.url;
+    res.writeHead(301, {'Location': url});
+    res.end();
+  }
+  else if(subDomain == ''){
     port = 4001; // app: testapp
   }
   else if(subDomain == 'cooling'){
     port = 3000; // app: example
   }
   else {
-    res.statusCode = 500;
-    res.end('Can not find your app!');
+    res.statusCode = 404;
+    res.end('No such url!');
   }
 
   if(port){
