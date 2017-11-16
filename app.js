@@ -8,7 +8,6 @@ const path = require('path');
 
 // Read all certs from certbot into an object
 let certs = readCerts("/etc/letsencrypt/live");
-console.log(certs);
 
 // Create a new reverse proxy
 const proxy = httpProxy.createProxyServer();
@@ -23,7 +22,10 @@ proxy.on('error',function(e){
 https.createServer({
   // SNICallback let's us get the correct cert
   // depening on what the domain the user asks for
-  SNICallback: (domain, callback) => callback(null, certs[domain].secureContext),
+  SNICallback: (domain, callback) => callback(
+    certs[domain] ? null : new Error('No such cert'),
+    certs[domain] ? certs[domain].secureContext : null
+  ),
   // But we still have the server with a "default" cert
   key: certs['datafreaksimalmo.se'].key,
   cert: certs['datafreaksimalmo.se'].cert
