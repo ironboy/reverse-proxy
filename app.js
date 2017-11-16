@@ -27,11 +27,14 @@ http.createServer((req,res) => {
 
   let port;
 
-  if(subDomain == '' || subDomain == 'www'){
-    port = 4001;
+  if(urlParts[0] == '.well-known'){
+    port = 5000; // app: certbot-helper
+  }
+  else if(subDomain == '' || subDomain == 'www'){
+    port = 4001; // app: testapp
   }
   else if(subDomain == 'cooling'){
-    port = 3000;
+    port = 3000; // app: example
   }
   else {
     res.statusCode = 500;
