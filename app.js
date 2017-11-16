@@ -1,6 +1,12 @@
 // Requires
 const http = require('http');
 const httpProxy = require('http-proxy');
+const tls = require('tls');
+const fs = require('fs');
+
+// Read all certs from certbot into an object
+let certs = readCerts();
+console.log(certs);
 
 // Create a new reverse proxy
 const proxy = httpProxy.createProxyServer();
@@ -67,3 +73,21 @@ function setResponseHeaders(req,res){
 
 }
 
+function readCerts(){
+
+  let certs = {},
+      domains = fs.readdirSync(pathToCerts);
+
+  // Read all ssl certs into memory from file
+  for(let domain of domains){
+    let domainName = domain.split('-0')[0];
+    certs[domainName] = {
+      key:  fs.readFileSync(path.join(pathToCerts,domain,'privkey.pem')),
+      cert: fs.readFileSync(path.join(pathToCerts,domain,'fullchain.pem'))
+    };
+    certs[domainName].secureContext = tls.createSecureContext(certs[domainName]);
+  }
+
+  return certs;
+
+}
