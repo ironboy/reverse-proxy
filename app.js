@@ -104,6 +104,13 @@ function setResponseHeaders(req,res){
     // set/replace our own headers
     res.setHeader('x-powered-by','Thomas supercoola server');
 
+    // security related
+    res.setHeader('strict-transport-security','max-age=31536000; includeSubDomains; preload');
+    res.setHeader('x-frame-options','SAMEORIGIN');
+    res.setHeader('x-xss-protection', '1');
+    res.setHeader('x-content-type-options','nosniff');
+    res.setHeader('content-security-policy',"default-src * 'unsafe-inline' 'unsafe-eval'");
+
     // call the original write head function as well
     res.oldWriteHead(statusCode,headers);
   }
