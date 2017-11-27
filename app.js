@@ -73,8 +73,8 @@ https.createServer({
     if(route == host){
       portToUse = port;
     }
-    else if (route.indexOf(host + url) == 0){
-      portToUse = port
+    else if (url != '/' && route.indexOf(host + url) == 0){
+      portToUse = port;
     }
   }
 
@@ -87,7 +87,7 @@ https.createServer({
 
   // Serve the correct app for a domain
   else if (portToUse){
-    proxy.web(req,res,{target:'http://127.0.0.1:' + port});
+    proxy.web(req,res,{target:'http://127.0.0.1:' + portToUse});
   }
   else {
     res.statusCode = 404;
