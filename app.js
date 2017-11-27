@@ -85,11 +85,6 @@ https.createServer({
     res.end();
   }
 
-  else if(typeof portToUse == 'string'){
-    // proxy to another server...
-    proxy.web(req,res,{target: portToUse});
-  }
-
   // Serve the correct app for a domain
   else if (portToUse){
     proxy.web(req,res,{target:'http://127.0.0.1:' + portToUse});
