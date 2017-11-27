@@ -4,5 +4,6 @@
     "redirect": "datafreaksimalmo.se"
   },
   "cooling.datafreaksimalmo.se": 3000,
-  "datafreaksimalmo.se/cooling": 3000
+  "datafreaksimalmo.se/cooling": 3000,
+  "nb.datafreaksimalmo.se": "https://nodebite.se"
 }
