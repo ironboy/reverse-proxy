@@ -79,7 +79,7 @@ https.createServer({
   }
 
   // Redirects
-  if(portToUse.redirect){
+  if(portToUse && portToUse.redirect){
     let url = 'https://' + portToUse.redirect;
     res.writeHead(301, {'Location': url});
     res.end();
