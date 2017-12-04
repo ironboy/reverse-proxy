@@ -1,2 +1,2 @@
 # reverse-proxy
-A simple node reverse proxy that is truly fantastic.
+A simple node reverse proxy that is truly fantastic and amazing.
