@@ -37,8 +37,8 @@ http.createServer((req,res)=>{
 
 // Create a new secure webserver
 https.createServer({
-  key: certs['datafreaksimalmo.se'].key,
-  cert: certs['datafreaksimalmo.se'].cert
+  key: certs['nodethat.net'].key,
+  cert: certs['nodethat.net'].cert
 },(req,res) => {
 
   // Set/replace response headers
@@ -94,14 +94,14 @@ function setResponseHeaders(req,res){
   res.writeHead = function(statusCode, headers){
 
     // set/replace our own headers
-    res.setHeader('x-powered-by','Thomas supercoola server');
+    res.setHeader('x-powered-by','Love');
 
-    // security related
-    res.setHeader('strict-transport-security','max-age=31536000; includeSubDomains; preload');
-    res.setHeader('x-frame-options','SAMEORIGIN');
-    res.setHeader('x-xss-protection', '1');
-    res.setHeader('x-content-type-options','nosniff');
-    res.setHeader('content-security-policy',"default-src * 'unsafe-inline' 'unsafe-eval'");
+    // security related (turned off right now)
+    // res.setHeader('strict-transport-security','max-age=31536000; includeSubDomains; preload');
+    // res.setHeader('x-frame-options','SAMEORIGIN');
+    // res.setHeader('x-xss-protection', '1');
+    // res.setHeader('x-content-type-options','nosniff');
+    // res.setHeader('content-security-policy',"default-src * 'unsafe-inline' 'unsafe-eval'");
 
     // call the original write head function as well
     res.oldWriteHead(statusCode,headers);
@@ -127,18 +127,3 @@ function readCerts(pathToCerts){
   return certs;
 
 }
-
-function renewCerts(){
-
-  exec('certbot renew',(error,stdOut,stdError)=>{
-    console.log('renewing certs',stdOut);
-    certs = readCerts('/etc/letsencrypt/live');
-  });
-
-}
-
-// Renew certs if needed on start
-renewCerts();
-// and then once every day
-setInterval(renewCerts, 1000 * 60 * 60 * 24);
-
