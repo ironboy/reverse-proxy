@@ -1,8 +1,7 @@
 {
-  "datafreaksimalmo.se": 4001,
-  "www.datafreaksimalmo.se": {
-    "redirect": "datafreaksimalmo.se"
+  "nodethat.net": 3000,
+  "www.nodethat.net": {
+    "redirect": "nodethat.net"
   },
-  "cooling.datafreaksimalmo.se": 3000,
-  "datafreaksimalmo.se/cooling": 3000
+  "sub.nodethat.se": 3010 
 }
