@@ -37,8 +37,8 @@ http.createServer((req,res)=>{
 
 // Create a new secure webserver
 https.createServer({
-  key: certs['nodethat.net'].key,
-  cert: certs['nodethat.net'].cert
+  key: certs['domain.com'].key,
+  cert: certs['domain.com'].cert
 },(req,res) => {
 
   // Set/replace response headers
@@ -113,7 +113,10 @@ function readCerts(pathToCerts){
 
   let certs = {},
       domains = fs.readdirSync(pathToCerts);
-
+  
+  pathToCerts += pathToCerts.slice(-1) !== '/' ? '/' : '';
+  domains = domains.filter(x => fs.lstatSync(pathToCerts + x).isDirectory());
+  
   // Read all ssl certs into memory from file
   for(let domain of domains){
     let domainName = domain.split('-0')[0];
