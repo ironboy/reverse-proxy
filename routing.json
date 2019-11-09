@@ -1,7 +1,7 @@
 {
-  "nodethat.net": 3000,
-  "www.nodethat.net": {
-    "redirect": "nodethat.net"
+  "domain.com": 3000,
+  "www.domain.com": {
+    "redirect": "domain.com"
   },
-  "sub.nodethat.net": 3010 
+  "sub.domain.com": 3010 
 }
