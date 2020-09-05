@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/ironboy/reverse-proxy#readme",
   "dependencies": {
-    "http-proxy": "^1.16.2",
+    "http-proxy": "^1.18.1",
     "express": "^4.16.4"
   }
 }
