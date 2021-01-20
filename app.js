@@ -116,7 +116,7 @@ function setResponseHeaders(req,res){
       args[1] = args[1].replace('http:', 'https:');
     }
     // call the original setHeader function
-    return res.oldSetHeader(args);
+    return res.oldSetHeader(...args);
   }
 
 }
