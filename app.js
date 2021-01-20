@@ -103,8 +103,20 @@ function setResponseHeaders(req,res){
     // res.setHeader('x-content-type-options','nosniff');
     // res.setHeader('content-security-policy',"default-src * 'unsafe-inline' 'unsafe-eval'");
 
-    // call the original write head function as well
-    res.oldWriteHead(statusCode,headers);
+    // call the original write head function
+    return res.oldWriteHead(statusCode,headers);
+  }
+
+  res.oldSetHeader = res.setHeader;
+  res.setHeader = function (...args) {
+    // If any app tries to redirect to http
+    // rewrite the redirect so that it goes to https
+    // (common problem with some Java Spring apps...)
+    if (args[0] === 'location' && args[1].indexOf('http:') === 0) {
+      args[1] = args[1].replace('http:', 'https:');
+    }
+    // call the original setHeader function
+    return res.oldSetHeader(args);
   }
 
 }
